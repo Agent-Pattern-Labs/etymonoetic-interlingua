@@ -66,5 +66,47 @@ This representation layer may support:
 
 ## Status
 
-This repository is an early-stage research and implementation space. Initial work should prioritize schemas, examples, provenance conventions, and small testable representations before larger systems are built around them.
+This repository now contains an MVP: a JSON Schema, Python validator, CLI, seed examples, and tests for semantic capsules.
 
+## MVP Quick Start
+
+Validate the bundled seed capsules:
+
+```bash
+PYTHONPATH=src python3 -m etymonoetic_interlingua validate examples/iconoclast.json examples/radical.json
+```
+
+Inspect a compact summary:
+
+```bash
+PYTHONPATH=src python3 -m etymonoetic_interlingua show examples/iconoclast.json
+```
+
+Run the test suite:
+
+```bash
+PYTHONPATH=src python3 -m pytest
+```
+
+The core schema lives at:
+
+```text
+src/etymonoetic_interlingua/schemas/semantic-capsule.schema.json
+```
+
+See [docs/mvp.md](docs/mvp.md) and [docs/schema.md](docs/schema.md) for the current implementation boundary.
+
+## Repository Layout
+
+```text
+src/etymonoetic_interlingua/   Python validator and CLI
+examples/                     Seed semantic capsules
+docs/                         MVP and schema notes
+tests/                        Validator and CLI tests
+```
+
+## Current Boundary
+
+The MVP is schema-first. It does not yet include production-grade lexical citations, resource adapters, compact notation, or model-training datasets.
+
+The next useful step is to add a small set of cited production capsules and then build adapters for OntoLex, lemonEty, Wiktionary, WordNet, ConceptNet, and corpora.
