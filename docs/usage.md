@@ -8,6 +8,12 @@ Etymonoetic Interlingua can be used today as a structured lexical meaning layer.
 PYTHONPATH=src python3 -m etymonoetic_interlingua new sincere --part-of-speech adjective --output examples/sincere.json
 ```
 
+To start with a Wiktionary source citation:
+
+```bash
+PYTHONPATH=src python3 -m etymonoetic_interlingua new sincere --part-of-speech adjective --wiktionary-source --output examples/sincere.json
+```
+
 This creates a valid capsule with explicit `unknown` placeholders. A starter capsule is not final semantic data. It is a safe scaffold that forces every layer to be considered.
 
 ## 2. Fill the Layers
@@ -33,6 +39,12 @@ PYTHONPATH=src python3 -m etymonoetic_interlingua validate examples/sincere.json
 ```
 
 Validation checks the JSON Schema and verifies that every `provenance_refs` value points to a declared source.
+
+Validate the curated capsule set:
+
+```bash
+PYTHONPATH=src python3 -m etymonoetic_interlingua validate capsules/en/*.json
+```
 
 ## 4. Inspect and Expand
 
@@ -73,6 +85,24 @@ Useful immediate integrations:
 - evals for etymological fallacy avoidance
 - adapters from Wiktionary, WordNet, ConceptNet, OntoLex, or corpora
 
+## 7. Use the Curated Capsule Set
+
+The repository includes a small production-candidate set in:
+
+```text
+capsules/en/
+```
+
+The set is indexed by:
+
+```text
+capsules/manifest.json
+```
+
+These capsules are suitable for demos, schema iteration, training-record export, and eval prototyping. They are not yet a comprehensive lexical database.
+
 ## Current Limits
 
 The toolchain does not yet fetch external sources or generate authoritative capsules automatically. Any production capsule should include cited lexicographic, corpus, or scholarly provenance.
+
+See [source-policy.md](source-policy.md) before adding source-derived data.

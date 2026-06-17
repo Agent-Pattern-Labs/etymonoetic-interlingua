@@ -10,12 +10,12 @@ The MVP is a working semantic capsule contract plus validation tooling. It is de
 - A CLI for validating and inspecting capsules.
 - A CLI starter generator for valid placeholder capsules.
 - A JSONL export command for text-to-capsule and capsule-to-expansion training records.
+- A 10-word production-candidate capsule set in `capsules/en/`.
 - Two seed examples: `iconoclast` and `radical`.
 - Tests that enforce required layers and provenance integrity.
 
 ## Not Included Yet
 
-- Production-quality lexicographic citations.
 - Adapters for OntoLex, lemonEty, Wiktionary, WordNet, ConceptNet, or corpora.
 - Automated capsule generation from raw text.
 - Compact EI notation.
@@ -53,12 +53,14 @@ ei validate examples/iconoclast.json examples/radical.json
 ei show examples/iconoclast.json
 ei expand examples/iconoclast.json --trace
 ei new sincere --part-of-speech adjective --output examples/sincere.json
+ei new sincere --part-of-speech adjective --wiktionary-source --output examples/sincere.json
 ei export-training examples/iconoclast.json examples/radical.json --output training.seed.jsonl
+ei validate capsules/en/*.json
 ```
 
 ## Next Milestones
 
-1. Add cited production capsules for 10 to 25 words.
+1. Expand the cited capsule set from 10 words to 25 words.
 2. Add an adapter interface for imported lexical resources.
 3. Implement a Wiktionary-derived seed adapter with conservative provenance labels.
 4. Add an OntoLex/lemonEty export path.

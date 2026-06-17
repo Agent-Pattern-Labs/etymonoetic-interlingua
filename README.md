@@ -88,6 +88,12 @@ Create a valid starter capsule:
 PYTHONPATH=src python3 -m etymonoetic_interlingua new sincere --part-of-speech adjective --output examples/sincere.json
 ```
 
+Create a starter with Wiktionary provenance:
+
+```bash
+PYTHONPATH=src python3 -m etymonoetic_interlingua new sincere --part-of-speech adjective --wiktionary-source --output examples/sincere.json
+```
+
 Print an explainable expansion:
 
 ```bash
@@ -112,13 +118,14 @@ The core schema lives at:
 src/etymonoetic_interlingua/schemas/semantic-capsule.schema.json
 ```
 
-See [docs/usage.md](docs/usage.md), [docs/mvp.md](docs/mvp.md), and [docs/schema.md](docs/schema.md) for the current implementation boundary.
+See [docs/usage.md](docs/usage.md), [docs/mvp.md](docs/mvp.md), [docs/schema.md](docs/schema.md), and [docs/source-policy.md](docs/source-policy.md) for the current implementation boundary.
 
 ## Repository Layout
 
 ```text
 src/etymonoetic_interlingua/   Python validator and CLI
 examples/                     Seed semantic capsules
+capsules/                     Production-candidate cited capsules
 docs/                         MVP and schema notes
 tests/                        Validator and CLI tests
 ```
@@ -130,9 +137,10 @@ tests/                        Validator and CLI tests
 - Use the schema in annotation tools or eval harnesses.
 - Store nuanced word meanings in agent memory or RAG systems as structured, inspectable objects.
 - Test whether an AI explanation avoids treating etymology as the true meaning.
+- Prototype with the 10-word cited capsule set in `capsules/en/`.
 
 ## Current Boundary
 
-The MVP is schema-first. It does not yet include production-grade lexical citations, resource adapters, compact notation, or production model-training datasets.
+The MVP is schema-first. It now includes a small production-candidate cited capsule set, but it does not yet include automatic resource adapters, compact notation, or production model-training datasets.
 
-The next useful step is to add a small set of cited production capsules and then build adapters for OntoLex, lemonEty, Wiktionary, WordNet, ConceptNet, and corpora.
+The next useful step is to expand the cited set to 25 words and then build adapters for OntoLex, lemonEty, Wiktionary, WordNet, ConceptNet, and corpora.

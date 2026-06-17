@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from etymonoetic_interlingua.sources import wiktionary_source
 from etymonoetic_interlingua.templates import make_capsule_template
 from etymonoetic_interlingua.training import training_records
 from etymonoetic_interlingua.validator import CapsuleValidationError, validate_capsule, validate_file
@@ -25,6 +26,11 @@ def build_parser() -> argparse.ArgumentParser:
     new_parser.add_argument("form")
     new_parser.add_argument("--language", default="en")
     new_parser.add_argument("--part-of-speech", default="unknown")
+    new_parser.add_argument(
+        "--wiktionary-source",
+        action="store_true",
+        help="Seed provenance with an English Wiktionary citation.",
+    )
     new_parser.add_argument("--output", "-o", type=Path)
     new_parser.set_defaults(func=run_new)
 
@@ -66,11 +72,17 @@ def run_validate(args: argparse.Namespace) -> int:
 
 def run_new(args: argparse.Namespace) -> int:
     try:
+        provenance = (
+            wiktionary_source(args.form, language=args.language).to_provenance()
+            if args.wiktionary_source
+            else None
+        )
         capsule = validate_capsule(
             make_capsule_template(
                 args.form,
                 language=args.language,
                 part_of_speech=args.part_of_speech,
+                provenance=provenance,
             )
         )
     except (CapsuleValidationError, ValueError) as exc:
